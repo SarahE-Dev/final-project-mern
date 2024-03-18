@@ -14,25 +14,25 @@ export default function SidebarComponent() {
              style={{textAlign: 'center', display: 'flex', flexDirection: 'column', alignItems: 'center'}}>
                 <div><Icon size='big'  color='yellow' name='fire'/><Icon size='big'  color='pink' name='music'/></div>
                 
-                <h1>FYRE TUNES</h1>
+                <h3>FYRE TUNES</h3>
                 </MenuItem>
                 <MenuItem
                 as={Link}
                 to='/playlists'
                 style={{textAlign: 'center', display: 'flex', flexDirection: 'column', alignItems: 'center'}}>
-                <div><Icon size='big' circular name='headphones' color='teal' /></div>
-                <h3 style={{}}>Playlists</h3>
+                <div><Icon size='large' circular name='headphones' color='teal' /></div>
+                <h4 style={{}}>Playlists</h4>
                 
                 </MenuItem>
                 <MenuItem
                 as={Link}
                 to='/favorites'
                 style={{textAlign: 'center', display: 'flex', flexDirection: 'column', alignItems: 'center'}}>
-                <div><Icon size='big' circular
+                <div><Icon size='large' circular
                 color='violet'
                 name='heartbeat'/></div>
                 
-                <h3>Favorites</h3>
+                <h4>Favorites</h4>
                 </MenuItem>
                 <Divider/>
         </Menu>

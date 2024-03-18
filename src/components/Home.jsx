@@ -27,7 +27,7 @@ export default function Home() {
 }
   const navigate = useNavigate()
   const {dispatch, state} = AuthContextConsumer()
-  const {setAccessToken, accessToken}= useContext(HomeContext)
+  
   const [refreshToken, setRefreshToken] = useState('');
   const [play, setPlay] = useState(false)
   const [searchInput, setSearchInput] = useState('')
@@ -56,7 +56,7 @@ export default function Home() {
             }
           );
           const { access_token, refresh_token } = response.data;
-          setAccessToken(access_token);
+          
           dispatch({type: 'SET_ACCESS_TOKEN', payload: access_token})
           setRefreshToken(refresh_token);
           localStorage.setItem('access_token', access_token)
@@ -102,8 +102,7 @@ export default function Home() {
       console.log(albums.data.items);
       setSearchInput('')
       
-      dispatch({type: 'ADD_SONG_TO_PLAYER', payload: albums.data.items[albums.data.items.length-1].uri})
-      dispatch({type: 'AUTOPLAY'})
+      
     } catch (error) {
       console.log(error);
       

@@ -26,6 +26,7 @@ import Track from './components/Track'
 
 
 
+
 export default function MainRouter() {
     const [accessToken, setAccessToken] = useState();
     const [showPlayer, setShowPlayer] = useState(false)
@@ -43,14 +44,15 @@ export default function MainRouter() {
         <ToastContainer/>
         <Navbar/>
         
+        
         {checkIfCookieExists() && <SidebarComponent/>}
         
         
           
         <Routes>
             <Route path='/' element={<PrivateRoute>
-              <HomeContext.Provider value={{accessToken, setAccessToken}}><Home />
-              </HomeContext.Provider></PrivateRoute>}/>
+              <Home />
+              </PrivateRoute>}/>
             <Route path='/signup' element={<Signup/>} />
             <Route path='/login' element={<Login/>} />
             <Route path='/playlists' element={<PrivateRoute><Playlists/></PrivateRoute>} />
@@ -62,6 +64,7 @@ export default function MainRouter() {
         <div style={{position: 'absolute', bottom: 0, width: '100vw'}}>
         {checkIfCookieExists() &&
         <SpotifyWebPlayer
+        
         token={state.accessToken}
         uris={state.trackUris}
         play={state.autoplay}

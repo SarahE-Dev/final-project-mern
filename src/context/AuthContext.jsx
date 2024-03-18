@@ -8,7 +8,7 @@ const initialState = {
   
   user: null,
   playlists: [],
-  favoriteSongs: [],
+  favorites: [],
   trackUris: [],
   accessToken: '',
   searchToken: '',
@@ -17,7 +17,7 @@ const initialState = {
   
 };
 
-const SET_USER = 'SET_USER';
+
 const ADD_PLAYLIST = 'ADD_PLAYLIST';
 const REMOVE_PLAYLIST = 'REMOVE_PLAYLIST';
 const ADD_FAVORITE_SONG = 'ADD_FAVORITE_SONG';
@@ -25,10 +25,11 @@ const REMOVE_FAVORITE_SONG = 'REMOVE_FAVORITE_SONG';
 
 const reducer = (state, action) => {
   switch (action.type) {
-    case SET_USER:
+    case 'SET_PLAYLISTS_AND_FAVORITES':
       return {
         ...state,
-        user: action.payload
+        playlists: action.payload.playlists,
+        favorites: action.payload.favorites
       };
     case ADD_PLAYLIST:
       return {
@@ -43,12 +44,12 @@ const reducer = (state, action) => {
     case ADD_FAVORITE_SONG:
       return {
         ...state,
-        favoriteSongs: [...state.favoriteSongs, action.payload],
+        favorites: [...state.favorites, action.payload],
       };
     case REMOVE_FAVORITE_SONG:
       return {
         ...state,
-        favoriteSongs: state.favoriteSongs.filter(song => song.id !== action.payload),
+        favorites: state.favorites.filter(song => song.songId !== action.payload),
       };
     case 'LOGIN':
       return {
@@ -60,7 +61,7 @@ const reducer = (state, action) => {
         ...state,
         user: null,
         playlists: [],
-        favoriteSongs: []
+        favorites: []
       };
     case 'ADD_SONG_TO_PLAYER':
       return {

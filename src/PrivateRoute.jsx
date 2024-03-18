@@ -6,6 +6,7 @@ const PrivateRoute = ({children}) =>{
     const {checkIfCookieExists} = checkAuthCookie()
     if(checkIfCookieExists()){
         return children
+        
     }else{
         return <Navigate to='/login' />
     }
