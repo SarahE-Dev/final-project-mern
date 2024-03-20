@@ -7,7 +7,7 @@ export default function SidebarComponent() {
     
     <div style={{position: 'fixed', left: 0, width: '15vw', backgroundColor: 'black', height: '90vh'}}>
         
-        <Menu as={Segment} style={{width: '15vw', height: '90vh', display: 'flex', justifyContent: 'space-evenly'}} vertical inverted>
+        <Menu as={Segment} style={{width: '15vw', height: '90vh', display: 'flex', justifyContent: 'space-evenly', fontSize: '1rem'}} vertical inverted>
             <MenuItem
             as={Link}
             to='/'

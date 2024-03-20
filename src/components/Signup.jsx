@@ -4,7 +4,8 @@ import { Grid, Header, Form, Message, Segment, Button, Label, FormField, Input }
 import { AppContext } from '../context/AuthContext';
 import checkAuthCookie from './hooks/checkCookies';
 import {isAlphanumeric, isStrongPassword, isEmail} from 'validator';
-
+import axios from 'axios';
+import { AuthContextConsumer } from '../context/AuthContext';
 export default function Signup() {
     const [username, setUsername] = useState('');
     const [email, setEmail] = useState('');
@@ -16,13 +17,14 @@ export default function Signup() {
     const [confirmPasswordError, setConfirmPasswordError] = useState('')
     const {checkIfCookieExists} = checkAuthCookie()
     const [isValidated, setIsValidated] = useState(false)
+    const {state, dispatch} = AuthContextConsumer()
     if(checkIfCookieExists()){
         return <Navigate to='/'/>
     }
 
     
-
-    const handleOnSubmit=(e)=>{
+    
+    const handleOnSubmit=async(e)=>{
         e.preventDefault()
         if(!isAlphanumeric(username)){
             setUsernameError('Username must contain only letters and numbers')
@@ -41,8 +43,28 @@ export default function Signup() {
             setPasswordError('');
             setConfirmPasswordError('')
             setEmailError('')
+            try {
+              
+              const newUser = await axios('http://localhost:3002/api/user/signup',{ method: 'post', 
+              data: {
+              username, password,
+              email
+              }, 
+              withCredentials: true, credentials: true})
+              console.log(newUser);
+              
+              dispatch({type: 'LOGIN', payload: {username: newUser.data.username, email: newUser.data.email, id: newUser.data._id}})
+              
+              setUsername('')
+              setEmail('')
+              setPassword('')
+              setConfirmPassword('')
+              
+            } catch (error) {
+              console.log(error);
+            }  
         }
-        
+      
     }
   return (
     <Grid 

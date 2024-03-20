@@ -39,17 +39,43 @@ const reducer = (state, action) => {
     case REMOVE_PLAYLIST:
       return {
         ...state,
-        playlists: state.playlists.filter(playlist => playlist.id !== action.payload),
+        playlists: state.playlists.filter(playlist => playlist._id !== action.payload),
       };
     case ADD_FAVORITE_SONG:
       return {
         ...state,
         favorites: [...state.favorites, action.payload],
       };
+    case 'ADD_SONG_TO_PLAYLIST':
+      return {
+        ...state,
+        playlists: state.playlists.map(playlist => {
+          if (playlist._id === action.payload.playlistId) {
+            return {
+              ...playlist,
+              songs: [...playlist.songs, action.payload.song],
+            };
+          }
+          return playlist;
+        }),
+      };
+      case 'REMOVE_SONG_FROM_PLAYLIST':
+        return {
+          ...state,
+          playlists: state.playlists.map(playlist => {
+            if (playlist._id === action.payload.playlistId) {
+              return {
+                ...playlist,
+                songs: playlist.songs.filter(song => song._id !== action.payload.id),
+              };
+            }
+            return playlist;
+          }),
+        };
     case REMOVE_FAVORITE_SONG:
       return {
         ...state,
-        favorites: state.favorites.filter(song => song.songId !== action.payload),
+        favorites: state.favorites.filter(song => song._id !== action.payload),
       };
     case 'LOGIN':
       return {
@@ -72,6 +98,11 @@ const reducer = (state, action) => {
       return {
         ...state,
         accessToken: action.payload
+      };
+    case 'SET_REFRESH_TOKEN' :
+      return {
+        ...state,
+        refreshToken: action.payload
       };
     case 'SET_SEARCH_TOKEN' :
       return {

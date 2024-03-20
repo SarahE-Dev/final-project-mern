@@ -20,6 +20,7 @@ const SCOPES = ['user-read-playback-state', 'user-modify-playback-state', 'user-
 
 const authorizationUrl = `https://accounts.spotify.com/authorize?client_id=${client_id}&redirect_uri=${redirect_uri}&scope=${SCOPES.join('%20')}&response_type=code`;
 
+const grantType = `grant_type=client_credentials&client_id=${client_id}&client_secret=${client_secret}`
 
 export default function Home() {
   function handleLogin(){
@@ -33,10 +34,19 @@ export default function Home() {
   const [searchInput, setSearchInput] = useState('')
   const [albums, setAlbums] = useState([])
   let access_t = window.localStorage.getItem('access_token')
+  const grabSpotifyToken=async ()=>{
+    let token = await axios.post('https://accounts.spotify.com/api/token', grantType, {
+      headers: {
+        'Content-Type': 'application/x-www-form-urlencoded'
+      }
+    })
+    window.localStorage.setItem('search_token', token.data.access_token)
+    window.localStorage.setItem('search_token_time', Date.now())
+  }
   useEffect(() => {
     const params = new URLSearchParams(window.location.search);
     const code = params.get('code');
-    console.log(code);
+    
     const fetchData = async () => {
       try {
         const response = await axios.post(
@@ -55,12 +65,14 @@ export default function Home() {
               },
             }
           );
-          const { access_token, refresh_token } = response.data;
+          
+          const { access_token, refresh_token, expires_in } = response.data;
           
           dispatch({type: 'SET_ACCESS_TOKEN', payload: access_token})
           setRefreshToken(refresh_token);
           localStorage.setItem('access_token', access_token)
           localStorage.setItem('refresh_token', refresh_token)
+          localStorage.setItem('expires_in', Date.now() + expires_in )
           
         
       } catch (error) {
@@ -77,6 +89,9 @@ export default function Home() {
     }
     let search_token = localStorage.getItem('search_token')
     if(search_token){
+      dispatch({type: 'SET_SEARCH_TOKEN', payload: search_token})
+    }else{
+      grabSpotifyToken()
       dispatch({type: 'SET_SEARCH_TOKEN', payload: search_token})
     }
     if(access_t && code){
@@ -129,19 +144,6 @@ export default function Home() {
     <Icon color='purple' size='massive' name='music' circular />
     </Divider>
     </div>
-    {!access_t && <Button
-    style={{color: 'limegreen', border: '2px solid limegreen'}}
-    circular
-    color='black'
-    content='Spotify Player'
-    
-    onClick={handleLogin}
-    icon='headphones'
-     />}
-    
-    
-    
-    
     </Container>
     
       <div style={{display: 'flex', flexWrap: 'wrap', marginLeft: '13vw', paddingBottom: '15vh'}}>

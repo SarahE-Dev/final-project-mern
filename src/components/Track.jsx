@@ -12,6 +12,7 @@ export default function Track() {
     const [playlistSelection, setPlaylistSelection] = useState('Choose Playlist')
     const [playlistInput, setPlaylistInput] = useState('');
     const [inputtingPlaylist, setInputtingPlaylist] = useState(false)
+    const [playlistIDtoAdd, setPlaylistIDtoAdd] = useState('')
     async function addToFavorites(){
       try {
           const newFavorite = await axios.post(`http://localhost:3002/api/user/add-favorite/${state.user.id}`, {
@@ -61,6 +62,31 @@ export default function Track() {
       addPlaylist()
       setPlaylistInput('');
       setInputtingPlaylist(false)
+    }
+    const handleAddSongToPlaylist = async () => {
+      if(playlistIDtoAdd){
+      try {
+        const addSong = await axios.post(`http://localhost:3002/api/user/add-song-playlist/${playlistIDtoAdd}/${track.id}`, {
+          songId: track.id,
+              title: track.name,
+              uri: track.uri,
+              artist: track.artists[0].name,
+              imageURL: albumImage 
+        })
+        console.log(addSong);
+        dispatch({type: 'ADD_SONG_TO_PLAYLIST', payload: {playlistId: playlistIDtoAdd, song: addSong.data.song}})
+        setPlaylistSelection('Choose Playlist')
+        setPlaylistIDtoAdd('')
+        setShow(false)
+        
+      } catch (error) {
+        console.log(error);
+        alert(error.response.data.message);
+        setPlaylistSelection('Choose Playlist')
+        setPlaylistIDtoAdd('')
+        
+      }
+    }
     }
   return (
     <>
@@ -113,7 +139,7 @@ export default function Track() {
           return <Button
           size='small'
           style={{width: '40vw', margin: 3}}
-          color='blue' inverted onClick={()=>setPlaylistSelection(e.name)}>{e.name}</Button>
+          color='blue' inverted onClick={()=>{setPlaylistSelection(e.name); setPlaylistIDtoAdd(e._id)}}>{e.name}</Button>
         }) : ''}
         </div>
         
@@ -125,7 +151,7 @@ export default function Track() {
       </ModalDescription>
     <ModalActions>
       <Button inverted color='grey' onClick={()=>setShow(false)}><Icon name='delete' />Cancel</Button>
-      <Button inverted color='violet' onClick={()=>setShow(false)}><Icon name='save' />Save</Button>
+      <Button inverted color='violet' onClick={handleAddSongToPlaylist}><Icon name='save' />Save</Button>
     </ModalActions>
     </Modal>
     </>
