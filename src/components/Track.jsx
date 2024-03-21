@@ -96,7 +96,7 @@ export default function Track() {
     
     </AccordionTitle>
     <Modal
-    style={{paddingTop: '10vh', height: '100vh', margin: 0}}
+    style={{paddingTop: '10vh', height: '100vh', margin: 0, width: '100vw'}}
     closeIcon
      className='text-center' size='large' basic onClose={()=>setShow(false)} onOpen={()=>setShow(true)} open={show}>
       
