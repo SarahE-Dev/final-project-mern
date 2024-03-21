@@ -15,7 +15,7 @@ export default function Navbar() {
     const handleLogout = () => {
       dispatch({type: 'LOGOUT'})
       Cookies.remove('music-app-cookie')
-      
+      window.localStorage.clear()
     }
     useEffect(() => {
       if(checkIfCookieExists()){
@@ -26,9 +26,9 @@ export default function Navbar() {
     
   return (
     
-    <Menu secondary size='large' style={{backgroundColor: 'black', color: 'white', borderRadius: 0, height: '10vh', marginTop: 0,marginBottom: 0, fontSize: 20}}>
+    <Menu  style={{backgroundColor: 'black', color: 'white', borderRadius: 0, height: '10vh', marginTop: 0,marginBottom: 0, fontSize: 20, width: '100vw'}}>
         
-        <MenuItem style={{fontSize: 30, color: 'white', fontFamily: 'Rock Salt', letterSpacing: '5px'}} as={Link} to='/'><Icon name='fire' color='yellow' />FYRE TUNES<Icon name='music' style={{marginLeft: '8px'}} color='pink' /></MenuItem>
+        <MenuItem style={{ color: 'white', fontFamily: 'Rock Salt', letterSpacing: '2px'}} as={Link} to='/'><Icon name='fire' color='yellow' />FYRE TUNES<Icon name='music' circular color='pink' /></MenuItem>
         <MenuMenu position='right'>
           {state && state.user && 
           <>

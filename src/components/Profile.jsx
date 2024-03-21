@@ -68,10 +68,10 @@ export default function Profile() {
     }
     
   return (
-    <div style={{backgroundColor: 'black', marginLeft: '15vw', color: 'white', height: '90vh', paddingBottom: '15vh'}}>
-        <div style={{width: '50vw', margin: 'auto', paddingTop: '10vh', textAlign: 'center'}}>
+    <div style={{background: 'linear-gradient(109.6deg, rgb(9, 9, 121) 11.2%, rgb(144, 6, 161) 53.7%, rgb(0, 212, 255) 100.2%)', marginLeft: '15vw', color: 'white', height: '90vh', paddingBottom: '15vh'}}>
+        <div style={{width: '50vw', margin: 'auto', paddingTop: '5vh', textAlign: 'center'}}>
         <Label color='purple' size='massive' content='Profile Info' style={{margin: '5vh', outline: '2px solid white'}} />
-        <Form style={{padding: '5vh', border: '2px solid white', borderRadius: '20px'}}>
+        <Form style={{padding: '3vh', border: '2px solid white', borderRadius: '20px', backgroundColor: 'black'}}>
             
             <FormField>
                 {
@@ -99,10 +99,10 @@ export default function Profile() {
             {!isEditable && <Button
         onClick={()=>setIsEditable(true)}
         size='large' inverted color='blue' style={{borderRadius: '25px', marginTop: '5vh'}}>Edit Profile</Button>}
-        {isEditable && <ButtonGroup style={{marginTop: '5vh'}}>
+        {isEditable && <div style={{display: 'flex', justifyContent: 'center'}}><ButtonGroup size='small' style={{marginTop: '5vh'}}>
             <Button onClick={()=>setIsEditable(false)}color='grey' inverted><Icon name='delete' /></Button>
-            <Button inverted color='teal' type='submit' onClick={handleSubmit}>Update User</Button>
-            </ButtonGroup>}
+            <Button inverted color='blue' type='submit' onClick={handleSubmit}>Update User</Button>
+            </ButtonGroup></div>}
         </Form>
         
         </div>

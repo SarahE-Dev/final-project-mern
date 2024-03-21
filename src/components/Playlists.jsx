@@ -68,7 +68,7 @@ export default function Playlists() {
   return (
     <div style={{background: 'linear-gradient(109.6deg, rgb(9, 9, 121) 11.2%, rgb(144, 6, 161) 53.7%, rgb(0, 212, 255) 100.2%)', width: '85vw', height: '90vh', marginLeft: '15vw', paddingTop: '2vh', paddingBottom: '20vh', overflow: 'auto'}}>
         <div style={{textAlign: 'center', display: 'flex', flexDirection: 'column', justifyContent: 'center', alignItems: 'center'}}>
-        <Button color='white' inverted onClick={()=>setInputtingPlaylist(true)}>Create Playlist</Button>
+        <Button inverted onClick={()=>setInputtingPlaylist(true)}>Create Playlist</Button>
         {inputtingPlaylist && <><Input value={playlistInput} onChange={(e)=>setPlaylistInput(e.target.value)} style={{margin: 10, marginBottom: 5}} />
         <ButtonGroup style={{margin: 10}}>
           <Button onClick={()=>setInputtingPlaylist(false)}  color='grey' inverted>

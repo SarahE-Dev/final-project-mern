@@ -1,5 +1,5 @@
-import React, {useState, useEffect, useContext} from 'react'
-import { Container, Divider, Form, FormField, Icon,  Image, Input,  Card} from 'semantic-ui-react'
+import React, {useState, useEffect, useContext, Suspense} from 'react'
+import { Container, Divider, Form, FormField, Icon,  Image, Input,  Card, Loader} from 'semantic-ui-react'
 import { Link, useNavigate } from 'react-router-dom'
 import { AuthContextConsumer } from '../context/AuthContext'
 import checkTokens from './hooks/tokenCheck'
@@ -52,6 +52,7 @@ export default function Home() {
 
   const handleOnSearch =async()=>{
     setHaveSearched(true)
+    if(searchInput !== ''){
     const searchParameters = {
       headers: {
         'Content-Type': 'application/json',
@@ -73,18 +74,19 @@ export default function Home() {
       
     }
   }
+  }
 
   return (
     <>
       
     
-    <div  style={{background: 'linear-gradient(109.6deg, rgb(9, 9, 121) 11.2%, rgb(144, 6, 161) 53.7%, rgb(0, 212, 255) 100.2%)', height: '90vh',marginLeft: '12vw', paddingTop: '2.6vh'}}>
-    <div style={{backgroundColor: 'black', paddingTop: '5vh', borderRadius: '20px', marginLeft: '5vw', marginRight: '2vw', height: '66vh', overflow: 'auto'}}>
+    <div  style={{background: 'linear-gradient(109.6deg, rgb(9, 9, 121) 11.2%, rgb(144, 6, 161) 53.7%, rgb(0, 212, 255) 100.2%)', height: '90vh',marginLeft: '12vw', paddingTop: '4vh'}}>
+    <div style={{backgroundColor: 'black', paddingTop: '5vh', borderRadius: '20px', marginLeft: '5vw', marginRight: '2vw', height: '67vh', overflow: 'auto'}}>
     
-    <Form  style={{width: '50vw', margin: 'auto'}}>
+    <Form onSubmit={handleOnSearch} style={{width: '50vw', margin: 'auto'}}>
       <FormField>
         
-        <Input value={searchInput} onChange={(e)=>setSearchInput(e.target.value)} placeholder='Searh for an  Artist...'  icon={<Icon inverted circular link name='search' onClick={handleOnSearch} />} />
+        <Input value={searchInput} onChange={(e)=>setSearchInput(e.target.value)} placeholder='Search for an  Artist...'  icon={<Icon inverted circular link name='search' onClick={handleOnSearch} />} />
         
       </FormField>
       
@@ -96,10 +98,10 @@ export default function Home() {
     </div>
       <div>
         {!haveSearched && <div style={{width: '60vw', margin: 'auto', color: 'white', textAlign: '', fontSize: '1.5em', display: 'flex', flexDirection: 'column', alignItems: 'center', justifyContent: 'center'}}>
-          <div style={{display: 'flex', justifyContent: 'center', alignItems: 'center'}}><Icon name='music' size='large' circular color='blue' /><h2 style={{ fontFamily: 'Rock Salt', color: '#5D3FD3', textShadow: '1px -1px 2px white'}}>Find Your Fyre </h2><Icon circular name='fire' color='pink' size='large' /></div>
+          <div style={{display: 'flex', justifyContent: 'center', alignItems: 'center', height: '7vh'}}><Icon name='music' size='large' circular color='blue' /><h2 style={{ fontFamily: 'Rock Salt', color: '#5D3FD3', textShadow: '1px -1px 2px white'}}>Find Your Fyre </h2><Icon circular name='fire' color='pink' size='large' /></div>
           <ul>
           <li style={{ marginTop: 20 }}>Search for an artist to see their albums</li>
-          <li style={{marginTop: 10}}>Click on Albums to view songs</li>
+          <li style={{marginTop: 10}}>Click on Albums to view Songs</li>
           <li style={{marginTop: 10}}>Add Songs to Favorites or Playlists</li>
           <li style={{marginTop: 10}}>Play Songs, Favorites and Playlists on Spotify Player</li>
           <li style={{marginTop: 10}}>Enjoy! <Icon color='purple' name='smile outline' /></li>
@@ -107,7 +109,8 @@ export default function Home() {
           </div>}
       </div>
     
-      <div style={{display: 'flex', flexWrap: 'wrap', marginLeft: '8.7vw', paddingBottom: '15vh'}}>
+      <div style={{display: 'flex', flexWrap: 'wrap', paddingBottom: '15vh', justifyContent: 'center'}}>
+        <Suspense fallback={<Loader/>}>
       {albums.map((album, i)=>{
         return (
           <Link to={`/album/${album.id}`} key={album.id}>
@@ -117,6 +120,7 @@ export default function Home() {
           </Link>
         )
       })}
+      </Suspense>
       </div>
       </div>
     </div>

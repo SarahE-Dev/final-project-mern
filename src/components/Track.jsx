@@ -90,8 +90,8 @@ export default function Track() {
     }
   return (
     <>
-    <AccordionTitle  style={{display: 'flex', alignItems: 'center'}}><div style={{width: '40vw'}}><Icon  name='play circle' onClick={()=>playSong(track.uri)} /><Label  content={track.name} color='violet' /></div>
-    {isFavorite ? <Icon onClick={removeFavoriteSong} style={{marginTop: 3}} name='heart' /> : <Icon onClick={addToFavorites} style={{marginTop: 2}} name='heart outline' />}
+    <AccordionTitle  style={{display: 'flex', alignItems: 'center'}}><div style={{width: '30vw', display: 'flex', alignItems: 'center'}}><Icon size='large' color='blue' inverted  name='play circle outline' onClick={()=>playSong(track.uri)} /><Label  content={track.name} color='violet' /></div>
+    {isFavorite ? <Icon color='pink' onClick={removeFavoriteSong} style={{marginTop: 3, }} size='large' name='heart' /> : <Icon onClick={addToFavorites} style={{marginTop: 2}} size='large' color='pink' name='heart outline' />}
     <Popup position='bottom left' size='mini' content='Add to Playlist' trigger={<Icon  name='plus' onClick={()=>setShow(true)} />} />
     
     </AccordionTitle>
