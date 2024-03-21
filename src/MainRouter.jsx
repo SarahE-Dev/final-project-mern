@@ -22,6 +22,8 @@ import Playlists from './components/Playlists'
 import Favorites from './components/Favorites'
 import Album from './components/Album'
 import Track from './components/Track'
+import Profile from './components/Profile'
+import checkTokens from './components/hooks/tokenCheck'
 
 
 const client_id='b3c2ec986d6b481793bad1372b1445fd'
@@ -37,55 +39,24 @@ const authorizationUrl = `https://accounts.spotify.com/authorize?client_id=${cli
 
 
 export default function MainRouter() {
-    const [accessToken, setAccessToken] = useState();
-    const [showPlayer, setShowPlayer] = useState(false)
-    const [trackUris, setTrackUris] = useState([]);
-    const {checkIfCookieExists} = checkAuthCookie()
+    const {checkIfCookieExists, logUserIn} = checkAuthCookie()
     const {state, dispatch} = AuthContextConsumer()
-    
+    const {handleTokens, fetchAccessToken} = checkTokens()
     function handleLogin(){
       window.location.href = authorizationUrl
   }
-  const location = window.location
-  console.log(location);
-  const fetchData = async () => {
-    try {
-      const response = await axios.post(
-          'https://accounts.spotify.com/api/token?',
-          new URLSearchParams({
-            client_id: client_id,
-            grant_type: 'authorization_code',
-            code,
-            redirect_uri:redirect_uri,
-            client_secret
-            
-          }),
-          {
-            headers: {
-              'Content-Type': 'application/x-www-form-urlencoded'
-            },
-          }
-        );
-        const { access_token, refresh_token } = response.data;
-        
-        dispatch({type: 'SET_ACCESS_TOKEN', payload: access_token})
-        dispatch({type: 'SET_REFRESH_TOKEN', payload: access_token})
-        localStorage.setItem('access_token', access_token)
-        localStorage.setItem('refresh_token', refresh_token)
-        
-      
-    } catch (error) {
-      console.error('Error exchanging code for tokens:', error);
-    }
   
-  }
-
+  
   useEffect(() => {
-    const access_token = localStorage.getItem('access_token');
-    if(access_token){
-      dispatch({type: 'SET_ACCESS_TOKEN', payload: access_token})
+    if(checkIfCookieExists()){
+      logUserIn()
     }
+    handleTokens()
   }, [])
+  
+  
+
+  
   
     
   return (
@@ -105,20 +76,21 @@ export default function MainRouter() {
             <Route path='/signup' element={<Signup/>} />
             <Route path='/login' element={<Login/>} />
             <Route path='/playlists' element={<PrivateRoute><Playlists/></PrivateRoute>} />
+            <Route path='/profile' element={<PrivateRoute><Profile/></PrivateRoute>} />
             <Route path='/favorites' element={<PrivateRoute><Favorites/></PrivateRoute>} />
             <Route path='/album/:albumID' element={<PrivateRoute><Album/></PrivateRoute>} />
             <Route path='/track/:trackID' element={<PrivateRoute><Track/></PrivateRoute>} />
         </Routes>
         
         <div style={{position: 'absolute', bottom: 0, width: '100vw'}}>
-        {state.accessToken &&
+        {state.accessToken && checkIfCookieExists() &&
         <SpotifyWebPlayer
         
         token={state.accessToken}
         uris={state.trackUris}
         play={state.autoplay}
         styles={{bgColor: 'black', color: 'white', loaderColor: 'blueviolet', activeColor: 'deeppink', height: '15vh'}}  />}
-        {!state.accessToken && <div style={{height: '15vh', backgroundColor: 'black', borderTop: '1px solid white', display: 'flex', justifyContent: 'center', alignItems: 'center'}}>
+        {!state.accessToken && state.user && <div style={{height: '15vh', backgroundColor: 'black', borderTop: '1px solid white', display: 'flex', justifyContent: 'center', alignItems: 'center'}}>
           <Button onClick={handleLogin} inverted style={{borderRadius: '20px'}}><Icon name='headphones' />Connect Spotify Player</Button>
           </div>}
         

@@ -12,15 +12,15 @@ export default function SidebarComponent() {
             as={Link}
             to='/'
              style={{textAlign: 'center', display: 'flex', flexDirection: 'column', alignItems: 'center'}}>
-                <div><Icon size='big'  color='yellow' name='fire'/><Icon size='big'  color='pink' name='music'/></div>
+                <div><Icon size='big'  color='purple' name='fire'/></div>
                 
-                <h3>FYRE TUNES</h3>
+                <h2>Home</h2>
                 </MenuItem>
                 <MenuItem
                 as={Link}
                 to='/playlists'
                 style={{textAlign: 'center', display: 'flex', flexDirection: 'column', alignItems: 'center'}}>
-                <div><Icon size='large' circular name='headphones' color='teal' /></div>
+                <div><Icon size='large' circular name='headphones' color='blue' /></div>
                 <h4 style={{}}>Playlists</h4>
                 
                 </MenuItem>

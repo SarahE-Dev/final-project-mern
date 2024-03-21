@@ -2,6 +2,7 @@ import React, { useEffect, useState } from 'react'
 import { Accordion, AccordionContent, AccordionTitle, Icon, Button, Label, Input, FormGroup, ButtonGroup } from 'semantic-ui-react'
 import { AuthContextConsumer } from '../context/AuthContext'
 import axios from 'axios'
+import checkTokens from './hooks/tokenCheck'
 
 export default function Playlists() {
   const {state, dispatch} = AuthContextConsumer()
@@ -13,12 +14,14 @@ export default function Playlists() {
     const newIndex = activeIndex === index ? -1 : index;
     setActiveIndex(newIndex)
   }
-  useEffect(() => {
-
-    console.log(state);
-  }, [state])
   function playMusic(uri){
     dispatch({type: 'ADD_SONG_TO_PLAYER', payload: uri})
+    dispatch({type: 'AUTOPLAY'})
+  }
+
+  function playPlaylist(playlist){
+    const songs = playlist.map(e=>e.uri)
+    dispatch({type: 'ADD_PLAYLIST_TO_PLAYER', payload: songs})
     dispatch({type: 'AUTOPLAY'})
   }
 
@@ -63,31 +66,31 @@ export default function Playlists() {
   
   
   return (
-    <div style={{backgroundColor: '	#2A2B2C', width: '85vw', height: '90vh', marginLeft: '15vw', paddingTop: '2vh'}}>
+    <div style={{background: 'linear-gradient(109.6deg, rgb(9, 9, 121) 11.2%, rgb(144, 6, 161) 53.7%, rgb(0, 212, 255) 100.2%)', width: '85vw', height: '90vh', marginLeft: '15vw', paddingTop: '2vh', paddingBottom: '20vh', overflow: 'auto'}}>
         <div style={{textAlign: 'center', display: 'flex', flexDirection: 'column', justifyContent: 'center', alignItems: 'center'}}>
-        <Button color='purple' inverted onClick={()=>setInputtingPlaylist(true)}>Create Playlist</Button>
-        {inputtingPlaylist && <Input value={playlistInput} onChange={(e)=>setPlaylistInput(e.target.value)} style={{margin: 10, marginBottom: 5}} />}
+        <Button color='white' inverted onClick={()=>setInputtingPlaylist(true)}>Create Playlist</Button>
+        {inputtingPlaylist && <><Input value={playlistInput} onChange={(e)=>setPlaylistInput(e.target.value)} style={{margin: 10, marginBottom: 5}} />
         <ButtonGroup style={{margin: 10}}>
           <Button onClick={()=>setInputtingPlaylist(false)}  color='grey' inverted>
             <Icon style={{marginLeft: 3}} name='remove circle' />
           </Button>
-          <Button onClick={handleSubmitNewPlaylist} color='green' inverted>
+          <Button onClick={handleSubmitNewPlaylist} color='blue' inverted>
           <Icon style={{marginLeft: 3}} name='save'  />
           </Button>
           
-        </ButtonGroup>
+        </ButtonGroup></>}
         </div>
         
-        <Accordion inverted style={{backgroundColor: 'black', width: '83vw', margin: 'auto'}} styled>
+        <Accordion inverted style={{backgroundColor: 'black', width: '83vw', margin: 'auto', marginTop: '2vh'}} styled>
         {state && state.playlists && (
           state.playlists.map((e, i)=>{
             return (
               <>
-              <AccordionTitle style={{display: 'flex', justifyContent: 'space-between'}} active={activeIndex === i} index={i} onClick={handleClick}>
+              <AccordionTitle style={{display: 'flex', justifyContent: 'space-between', alignItems: 'center'}} active={activeIndex === i} index={i} onClick={handleClick}>
                 <div>
                 <Icon name='dropdown' />
                 {e.name}
-                </div><Icon name='remove circle' onClick={()=>removePlaylist(e._id)} /></AccordionTitle>
+                </div><div><Icon onClick={()=>playPlaylist(e.songs)} color='blue' size='large' name='play circle outline' /><Icon size='large' name='remove circle' onClick={()=>removePlaylist(e._id)} /></div></AccordionTitle>
                 <AccordionContent active={activeIndex === i}>
                   {e.songs.map(s=><div style={{display: 'flex', justifyContent: 'space-between', alignItems: 'center'}}>
                   <div>

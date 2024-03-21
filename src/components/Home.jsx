@@ -1,12 +1,9 @@
 import React, {useState, useEffect, useContext} from 'react'
-import { Accordion, AccordionContent, AccordionTitle, Button, ButtonGroup, Container, Divider, Form, FormField, Header, Menu, MenuItem, MenuMenu, Segment, Icon, Label, Grid, GridColumn, Image, List, ListItem, Input, SidebarPusher, SidebarPushable, FormGroup, Card} from 'semantic-ui-react'
-import Signup from './Signup'
-import axios from 'axios'
-import { PlayerContext } from '../context/PlayerContext'
-import { HomeContext } from '../context/HomeContext'
-import SidebarComponent from './SidebarComponent'
+import { Container, Divider, Form, FormField, Icon,  Image, Input,  Card} from 'semantic-ui-react'
 import { Link, useNavigate } from 'react-router-dom'
 import { AuthContextConsumer } from '../context/AuthContext'
+import checkTokens from './hooks/tokenCheck'
+import axios from 'axios'
 
 
 const client_id='b3c2ec986d6b481793bad1372b1445fd'
@@ -28,9 +25,9 @@ export default function Home() {
 }
   const navigate = useNavigate()
   const {dispatch, state} = AuthContextConsumer()
+  const {handleTokens} = checkTokens()
+  const [haveSearched, setHaveSearched] = useState(false)
   
-  const [refreshToken, setRefreshToken] = useState('');
-  const [play, setPlay] = useState(false)
   const [searchInput, setSearchInput] = useState('')
   const [albums, setAlbums] = useState([])
   let access_t = window.localStorage.getItem('access_token')
@@ -44,64 +41,17 @@ export default function Home() {
     window.localStorage.setItem('search_token_time', Date.now())
   }
   useEffect(() => {
-    const params = new URLSearchParams(window.location.search);
-    const code = params.get('code');
     
-    const fetchData = async () => {
-      try {
-        const response = await axios.post(
-            'https://accounts.spotify.com/api/token?',
-            new URLSearchParams({
-              client_id: client_id,
-              grant_type: 'authorization_code',
-              code,
-              redirect_uri:redirect_uri,
-              client_secret
-              
-            }),
-            {
-              headers: {
-                'Content-Type': 'application/x-www-form-urlencoded'
-              },
-            }
-          );
-          
-          const { access_token, refresh_token, expires_in } = response.data;
-          
-          dispatch({type: 'SET_ACCESS_TOKEN', payload: access_token})
-          setRefreshToken(refresh_token);
-          localStorage.setItem('access_token', access_token)
-          localStorage.setItem('refresh_token', refresh_token)
-          localStorage.setItem('expires_in', Date.now() + expires_in )
-          
-        
-      } catch (error) {
-        console.error('Error exchanging code for tokens:', error);
-      }
-    
-    }
-    
-    if(access_t){
-      dispatch({type: 'SET_ACCESS_TOKEN', payload: access_t})
-    }
-    if(code){
-    fetchData();
-    }
-    let search_token = localStorage.getItem('search_token')
-    if(search_token){
-      dispatch({type: 'SET_SEARCH_TOKEN', payload: search_token})
-    }else{
-      grabSpotifyToken()
-      dispatch({type: 'SET_SEARCH_TOKEN', payload: search_token})
-    }
-    if(access_t && code){
-      navigate('/')
-    }
+    handleTokens()
   }, []);
+
+  
+  
 
   
 
   const handleOnSearch =async()=>{
+    setHaveSearched(true)
     const searchParameters = {
       headers: {
         'Content-Type': 'application/json',
@@ -128,9 +78,9 @@ export default function Home() {
     <>
       
     
-    <div  style={{backgroundColor: 'black', height: '90vh', marginTop: 0, marginLeft: '12vw', paddingTop: '5vh', overflow: 'scroll'}}>
+    <div  style={{background: 'linear-gradient(109.6deg, rgb(9, 9, 121) 11.2%, rgb(144, 6, 161) 53.7%, rgb(0, 212, 255) 100.2%)', height: '90vh',marginLeft: '12vw', paddingTop: '2.6vh'}}>
+    <div style={{backgroundColor: 'black', paddingTop: '5vh', borderRadius: '20px', marginLeft: '5vw', marginRight: '2vw', height: '66vh', overflow: 'auto'}}>
     
-    <Container style={{}} textAlign='center' size='sm'>
     <Form  style={{width: '50vw', margin: 'auto'}}>
       <FormField>
         
@@ -144,9 +94,20 @@ export default function Home() {
     <Icon color='purple' size='massive' name='music' circular />
     </Divider>
     </div>
-    </Container>
+      <div>
+        {!haveSearched && <div style={{width: '60vw', margin: 'auto', color: 'white', textAlign: '', fontSize: '1.5em', display: 'flex', flexDirection: 'column', alignItems: 'center', justifyContent: 'center'}}>
+          <div style={{display: 'flex', justifyContent: 'center', alignItems: 'center'}}><Icon name='music' size='large' circular color='blue' /><h2 style={{ fontFamily: 'Rock Salt', color: '#5D3FD3', textShadow: '1px -1px 2px white'}}>Find Your Fyre </h2><Icon circular name='fire' color='pink' size='large' /></div>
+          <ul>
+          <li style={{ marginTop: 20 }}>Search for an artist to see their albums</li>
+          <li style={{marginTop: 10}}>Click on Albums to view songs</li>
+          <li style={{marginTop: 10}}>Add Songs to Favorites or Playlists</li>
+          <li style={{marginTop: 10}}>Play Songs, Favorites and Playlists on Spotify Player</li>
+          <li style={{marginTop: 10}}>Enjoy! <Icon color='purple' name='smile outline' /></li>
+          </ul>
+          </div>}
+      </div>
     
-      <div style={{display: 'flex', flexWrap: 'wrap', marginLeft: '13vw', paddingBottom: '15vh'}}>
+      <div style={{display: 'flex', flexWrap: 'wrap', marginLeft: '8.7vw', paddingBottom: '15vh'}}>
       {albums.map((album, i)=>{
         return (
           <Link to={`/album/${album.id}`} key={album.id}>
@@ -157,7 +118,7 @@ export default function Home() {
         )
       })}
       </div>
-    
+      </div>
     </div>
     
     </>

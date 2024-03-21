@@ -1,12 +1,18 @@
 import React from 'react'
 import { AuthContextConsumer } from '../context/AuthContext'
-import { Card, CardContent, CardDescription, CardGroup, CardHeader, CardMeta, Icon, Image, Label } from 'semantic-ui-react'
+import { Card, CardContent, CardGroup, CardMeta, Icon, Image, Button } from 'semantic-ui-react'
 import axios from 'axios'
 
 export default function Favorites() {
   const {state, dispatch} = AuthContextConsumer()
   function playMusic(uri){
     dispatch({type: 'ADD_SONG_TO_PLAYER', payload: uri})
+    dispatch({type: 'AUTOPLAY'})
+  }
+
+  function playAllMusic(songs){
+    const songsToPlay = songs.map(e=>e.uri)
+    dispatch({type: 'ADD_PLAYLIST_TO_PLAYER', payload: songsToPlay})
     dispatch({type: 'AUTOPLAY'})
   }
 
@@ -20,9 +26,10 @@ export default function Favorites() {
       }
   }
   return (
-    <div style={{backgroundColor: 'black', height: '90vh', color: 'white', marginLeft: '15vw', padding: '3vh 3vh', overflow: 'scroll', paddingBottom: '20vh'}}>
+    <div style={{background: 'linear-gradient(109.6deg, rgb(9, 9, 121) 11.2%, rgb(144, 6, 161) 53.7%, rgb(0, 212, 255) 100.2%)', height: '90vh', color: 'white', marginLeft: '15vw', padding: '3vh 3vh', overflow: 'auto', paddingBottom: '20vh'}}>
       {!state.favorites.length > 0 && <div style={{display: 'flex', flexDirection: 'column', justifyContent: 'center', alignItems: 'center'}}><div style={{marginTop: '5vh'}}><Icon  name='heartbeat' size='huge' color='pink' /></div><div style={{marginTop: '5vh'}}><h2 >You don't have any favorites yet.</h2></div></div>}
-      <CardGroup doubling itemsPerRow={6} style={{}} textAlign='center'  >
+      {state && state.favorites && state.favorites.length > 0 && <div style={{display: 'flex', justifyContent: 'center', paddingBottom: '3vh'}}><Button onClick={()=>playAllMusic(state.favorites)} color='violet' inverted style={{display: 'flex', alignItems: 'center', borderRadius: '25px'}} ><Icon size='large' name='play circle' /><span style={{fontSize: 20}}>PLAY ALL</span></Button></div>}
+      <CardGroup doubling itemsPerRow={4} style={{}} textAlign='center'  >
       {state && state.favorites && state.favorites.map(e=>
         <Card  color='purple' style={{backgroundColor: 'black', color: 'white'}} >
           <Image style={{margin: '20px'}}  src={e.imageURL}  />

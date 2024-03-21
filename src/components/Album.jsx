@@ -70,9 +70,9 @@ export default function Album() {
     
 
   return (
-    <div style={{backgroundColor: 'black', width: '85vw', marginLeft: '15vw', height: '90vh', overflow: 'scroll', display: 'flex', flexDirection: 'column', paddingLeft: '2vw', justifyContent: 'center', alignItems: 'center', color: 'white', paddingBottom: '20vh', paddingTop: '60vh'}}>
-        
-            <Image height={200} src={albumImage} />
+    <div style={{background: 'linear-gradient(109.6deg, rgb(9, 9, 121) 11.2%, rgb(144, 6, 161) 53.7%, rgb(0, 212, 255) 100.2%)', width: '85vw', marginLeft: '15vw', height: '90vh', overflow: 'auto',  color: 'white', paddingTop: '3vh', paddingLeft: '2vw'}}>
+            <div style={{backgroundColor: 'black', width: '80vw', borderRadius: '25px', display: 'flex', flexDirection: 'column', paddingLeft: '3vw', justifyContent: 'center', alignItems: 'center',overflow: 'auto', marginBottom: '17vh', padding: '5vw'}}>
+            <Image height={200} style={{outline: '1px solid white', borderRadius: '10px'}} src={albumImage} />
             <h2>{albumName}</h2>
             <h4>{albumArtist}</h4>
             <p>{albumDate}</p>
@@ -83,6 +83,7 @@ export default function Album() {
                     )
                 })}
             </Accordion>
+            </div>
     </div>
   )
 }

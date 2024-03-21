@@ -87,12 +87,21 @@ const reducer = (state, action) => {
         ...state,
         user: null,
         playlists: [],
-        favorites: []
+        favorites: [],
+        accessToken: '',
+        refreshToken: '',
+        searchToken: '',
+        autoplay: false
       };
     case 'ADD_SONG_TO_PLAYER':
       return {
         ...state,
-        trackUris: [action.payload]
+        trackUris: [action.payload, ...state.trackUris]
+      };
+    case 'ADD_PLAYLIST_TO_PLAYER':
+      return {
+        ...state,
+        trackUris: [...action.payload, ...state.trackUris]
       };
     case 'SET_ACCESS_TOKEN' :
       return {
@@ -114,7 +123,6 @@ const reducer = (state, action) => {
         ...state,
         autoplay: true
       }
-    
     default:
       return state;
   }

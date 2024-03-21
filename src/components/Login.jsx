@@ -19,15 +19,7 @@ export default function Login() {
   if(checkIfCookieExists()){
     return <Navigate to='/' />
   }
-  const grabSpotifyToken=async ()=>{
-    let token = await axios.post('https://accounts.spotify.com/api/token', grantType, {
-      headers: {
-        'Content-Type': 'application/x-www-form-urlencoded'
-      }
-    })
-    window.localStorage.setItem('search_token', token.data.access_token)
-    window.localStorage.setItem('search_token_time', Date.now())
-  }
+  
   const handleOnSubmit=async(e)=>{
     e.preventDefault()
     try {
@@ -48,15 +40,14 @@ export default function Login() {
         
         setUsername('');
         setPassword('');
-        grabSpotifyToken()
     } catch (error) {
         console.log(error);
     }
 }
   return (
-    <div>
-    <Grid  textAlign='center' style={{ height: '90vh', backgroundColor: 'black'}}
-    padded='verically' verticalAlign='middle'>
+    <div style={{background: 'linear-gradient(109.6deg, rgb(9, 9, 121) 11.2%, rgb(144, 6, 161) 53.7%, rgb(0, 212, 255) 100.2%)', height: '90vh', paddingTop: '15vh', paddingLeft: '20vw'}}>
+    <Grid  textAlign='center' style={{backgroundColor: 'black', height: '60vh', padding: '5vh', width: '60vw', borderRadius: '25px'}}
+    padded='vertically' verticalAlign='middle'>
     <Grid.Column style={{ maxWidth: 450 }}>
       <Header as='h2' color='pink' textAlign='center'>
         Login to your account
@@ -79,7 +70,7 @@ export default function Login() {
 
           <Button
           type='submit'
-          inverted color='pink' fluid size='large'>
+          inverted color='purple' fluid size='large'>
             Login
           </Button>
         </Segment>

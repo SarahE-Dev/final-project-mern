@@ -16,7 +16,6 @@ export default function Signup() {
     const [passwordError, setPasswordError] = useState('')
     const [confirmPasswordError, setConfirmPasswordError] = useState('')
     const {checkIfCookieExists} = checkAuthCookie()
-    const [isValidated, setIsValidated] = useState(false)
     const {state, dispatch} = AuthContextConsumer()
     if(checkIfCookieExists()){
         return <Navigate to='/'/>
@@ -67,10 +66,11 @@ export default function Signup() {
       
     }
   return (
+    <div style={{background: 'linear-gradient(109.6deg, rgb(9, 9, 121) 11.2%, rgb(144, 6, 161) 53.7%, rgb(0, 212, 255) 100.2%)', height: '90vh', paddingTop: '7vh', paddingLeft: '13vw'}}>
     <Grid 
     padded='vertically'
-    textAlign='center' style={{ height: '90vh', backgroundColor: 'black' }} verticalAlign='middle'>
-    <Grid.Column style={{ maxWidth: 450 }}>
+    textAlign='center' style={{backgroundColor: 'black', height: '75vh', padding: '10vh', width: '75vw', borderRadius: '25px'}}verticalAlign='middle'>
+    <Grid.Column style={{  marginBottom: '20vh'}}>
       <Header as='h2' color='purple' textAlign='center'>
         Create New Account
       </Header>
@@ -145,6 +145,7 @@ export default function Signup() {
       </Message>
     </Grid.Column>
   </Grid>
+  </div>
   )
 }
 
