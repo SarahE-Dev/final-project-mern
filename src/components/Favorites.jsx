@@ -1,7 +1,7 @@
 import React from 'react'
 import { AuthContextConsumer } from '../context/AuthContext'
 import { Card, CardContent, CardGroup, CardMeta, Icon, Image, Button } from 'semantic-ui-react'
-import axios from 'axios'
+import Axios from './utils/Axios'
 
 export default function Favorites() {
   const {state, dispatch} = AuthContextConsumer()
@@ -18,9 +18,9 @@ export default function Favorites() {
 
   async function removeSongFromFavorites(id){
       try {
-        const remove = await axios.post(`http://localhost:3002/api/user/delete-favorite/${state.user.id}/${id}`)
+        const remove = await Axios.post(`/api/user/delete-favorite/${state.user.id}/${id}`)
         console.log(remove);
-        dispatch({type: 'REMOVE_FAVORITE_SONG', payload: id})
+        dispatch({type: 'REMOVE_FAVORITE_SONG', payload: remove.data.song._id})
       } catch (error) {
         console.log(error);
       }
@@ -31,7 +31,7 @@ export default function Favorites() {
       {state && state.favorites && state.favorites.length > 0 && <div style={{display: 'flex', justifyContent: 'center', paddingBottom: '3vh'}}><Button onClick={()=>playAllMusic(state.favorites)} color='violet' inverted style={{display: 'flex', alignItems: 'center', borderRadius: '25px'}} ><Icon size='large' name='play circle' /><span style={{fontSize: 20}}>PLAY ALL</span></Button></div>}
       <CardGroup doubling itemsPerRow={4} style={{}} textAlign='center'  >
       {state && state.favorites && state.favorites.map(e=>
-        <Card  color='purple' style={{backgroundColor: 'black', color: 'white'}} >
+        <Card key={e.title} color='purple' style={{backgroundColor: 'black', color: 'white'}} >
           <Image style={{margin: '20px'}}  src={e.imageURL}  />
           <CardContent>
             <CardMeta style={{color: 'white'}}>
@@ -46,7 +46,7 @@ export default function Favorites() {
           <Icon 
           onClick={()=>playMusic(e.uri)}
           size='large' style={{cursor: 'pointer'}} circular name='play circle outline' />
-          <Icon onClick={()=>removeSongFromFavorites(e._id)}  color='grey' style={{cursor: 'pointer', marginTop: 5}} circular name='delete' />
+          <Icon onClick={()=>removeSongFromFavorites(e.songId)}  color='grey' style={{cursor: 'pointer', marginTop: 5}} circular name='delete' />
           </div>
         </Card>
         )}

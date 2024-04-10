@@ -1,15 +1,12 @@
 import { AuthContextConsumer } from "../../context/AuthContext";
 import axios from "axios";
 import { useNavigate } from "react-router";
-const client_id='b3c2ec986d6b481793bad1372b1445fd'
 
-const client_secret = '4f7c4b046c014f25adf7bb82fb8489e9'
 
-const grantType = `grant_type=client_credentials&client_id=${client_id}&client_secret=${client_secret}`
+const grantType = `grant_type=client_credentials&client_id=${import.meta.env.VITE_CLIENT_ID}&client_secret=${import.meta.env.VITE_CLIENT_SECRET}`
 
 const TOKEN_URL = 'https://accounts.spotify.com/api/token?'
 
-const redirect_uri = 'http://localhost:5173'
 
 function checkTokens(){
     const {state, dispatch} = AuthContextConsumer()
@@ -93,15 +90,18 @@ function checkTokens(){
           console.error('Error exchanging code for tokens:', error);
         }
     }
+    const client_id = import.meta.env.VITE_CLIENT_ID;
+    const client_secret = import.meta.env.VITE_CLIENT_SECRET;
+    const redirect_uri = process.env.NODE_ENV === 'development' ? 'http://localhost:5173' : 'https://fyretunes.saraheatherly.dev' ;
     const fetchAccessToken = async () => {
         try {
           const response = await axios.post(
               TOKEN_URL,
               new URLSearchParams({
-                client_id: client_id,
+                client_id,
                 grant_type: 'authorization_code',
                 code,
-                redirect_uri:redirect_uri,
+                redirect_uri,
                 client_secret
                 
               }),

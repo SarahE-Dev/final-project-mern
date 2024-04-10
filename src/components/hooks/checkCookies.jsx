@@ -3,7 +3,7 @@ import { jwtDecode } from "jwt-decode";
 import { AuthContextConsumer } from "../../context/AuthContext";
 import axios from "axios";
 
-
+import Axios from "../utils/Axios";
 
 
 function checkAuthCookie(){
@@ -14,7 +14,7 @@ function checkAuthCookie(){
     }
     const getUserData=async(id)=>{
         try {
-            const userData = await axios.get(`http://localhost:3002/api/user/get-user-info/${id}`)
+            const userData = await Axios.get(`/api/user/get-user-info/${id}`)
             dispatch({type: 'SET_PLAYLISTS_AND_FAVORITES', payload: {
                 favorites: userData.data.user.favorites,
                 playlists: userData.data.user.playlists

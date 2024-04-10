@@ -2,7 +2,7 @@ import React, {useState, useEffect} from 'react'
 import { AuthContextConsumer } from '../context/AuthContext'
 import { Form, Input, FormField, Label, Button, ButtonGroup, Icon } from 'semantic-ui-react'
 import {isAlphanumeric, isEmail} from 'validator'
-import axios from 'axios'
+import Axios from './utils/Axios'
 import checkAuthCookie from './hooks/checkCookies'
 
 
@@ -36,7 +36,7 @@ export default function Profile() {
         if(usernameError === '' && emailError === '' && username && email && !(username === state.user.username && email === state.user.email)){ 
           console.log(username, email);
             try {
-              const updatedUser = await axios(`http://localhost:3002/api/user/update-user-info/${state.user.id}`, {
+              const updatedUser = await Axios(`/api/user/update-user-info/${state.user.id}`, {
                 method: 'post', 
                 data: {
                 username, email

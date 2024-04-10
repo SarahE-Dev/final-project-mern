@@ -17,12 +17,12 @@ export default function Navbar() {
       Cookies.remove('music-app-cookie')
       window.localStorage.clear()
     }
-    useEffect(() => {
-      if(checkIfCookieExists()){
-        logUserIn()
-      }
+    // useEffect(() => {
+    //   if(checkIfCookieExists()){
+    //     logUserIn()
+    //   }
 
-    }, [])
+    // }, [])
     
   return (
     

@@ -2,6 +2,7 @@ import React, { useEffect, useState } from 'react'
 import { Accordion, AccordionContent, AccordionTitle, Icon, Button, Label, Input, FormGroup, ButtonGroup } from 'semantic-ui-react'
 import { AuthContextConsumer } from '../context/AuthContext'
 import axios from 'axios'
+import Axios from './utils/Axios'
 import checkTokens from './hooks/tokenCheck'
 
 export default function Playlists() {
@@ -27,7 +28,7 @@ export default function Playlists() {
 
   async function removePlaylistSong(playlistId, id){
     try {
-      const remove = await axios.post(`http://localhost:3002/api/user/remove-playlist-song/${playlistId}/${id}`)
+      const remove = await Axios.post(`/api/user/remove-playlist-song/${playlistId}/${id}`)
       console.log(remove);
       dispatch({type: 'REMOVE_SONG_FROM_PLAYLIST', payload: {playlistId, id}})
     } catch (error) {
@@ -37,7 +38,7 @@ export default function Playlists() {
 
   async function addPlaylist(){
     try {
-      const newPlaylist = await axios.post(`http://localhost:3002/api/user/add-playlist/${state.user.id}`, {
+      const newPlaylist = await Axios.post(`/api/user/add-playlist/${state.user.id}`, {
           playlistName: playlistInput
       })
       console.log(newPlaylist);
@@ -55,7 +56,7 @@ export default function Playlists() {
 
   async function removePlaylist(id){
     try {
-      const updatedUser = await axios.post(`http://localhost:3002/api/user/remove-playlist/${state.user.id}/${id}`)
+      const updatedUser = await Axios.post(`/api/user/remove-playlist/${state.user.id}/${id}`)
       console.log(updatedUser);
       dispatch({type: 'REMOVE_PLAYLIST', payload: id})
     } catch (error) {

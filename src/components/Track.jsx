@@ -2,7 +2,7 @@ import React, {useContext, useState, useEffect} from 'react'
 import { TrackContext } from '../context/TrackContext'
 import { AccordionTitle, Icon, Label, AccordionContent, Button, Modal, Header, ModalContent, ModalActions, ModalHeader, ModalDescription, Popup, Form, FormInput, FormButton, FormField, FormGroup } from 'semantic-ui-react'
 import { AuthContextConsumer } from '../context/AuthContext'
-import axios from 'axios'
+import Axios from './utils/Axios'
 
 export default function Track() {
     const {track, playSong, albumImage} = useContext(TrackContext)
@@ -15,7 +15,7 @@ export default function Track() {
     const [playlistIDtoAdd, setPlaylistIDtoAdd] = useState('')
     async function addToFavorites(){
       try {
-          const newFavorite = await axios.post(`http://localhost:3002/api/user/add-favorite/${state.user.id}`, {
+          const newFavorite = await Axios.post(`/api/user/add-favorite/${state.user.id}`, {
               songId: track.id,
               title: track.name,
               uri: track.uri,
@@ -30,11 +30,11 @@ export default function Track() {
       }
     }
     
-    async function removeFavoriteSong(){
+    async function removeFavoriteSong(id){
       try {
-          let removeFavorite = await axios.delete(`http://localhost:3002/api/user/delete-favorite/${state.user.id}/${track.id}`);
-          console.log(removeFavorite);
-          dispatch({type: 'REMOVE_FAVORITE_SONG', payload: track.id})
+        const remove = await Axios.post(`http://localhost:3002/api/user/delete-favorite/${state.user.id}/${id}`)
+        console.log(remove);
+        dispatch({type: 'REMOVE_FAVORITE_SONG', payload: remove.data.song._id})
       } catch (error) {
           console.log(error);
       }
@@ -48,7 +48,7 @@ export default function Track() {
     }, [state])
     async function addPlaylist(){
       try {
-        const newPlaylist = await axios.post(`http://localhost:3002/api/user/add-playlist/${state.user.id}`, {
+        const newPlaylist = await Axios.post(`/api/user/add-playlist/${state.user.id}`, {
             playlistName: playlistInput
         })
         console.log(newPlaylist);
@@ -66,7 +66,7 @@ export default function Track() {
     const handleAddSongToPlaylist = async () => {
       if(playlistIDtoAdd){
       try {
-        const addSong = await axios.post(`http://localhost:3002/api/user/add-song-playlist/${playlistIDtoAdd}/${track.id}`, {
+        const addSong = await Axios.post(`/api/user/add-song-playlist/${playlistIDtoAdd}/${track.id}`, {
           songId: track.id,
               title: track.name,
               uri: track.uri,
@@ -91,7 +91,7 @@ export default function Track() {
   return (
     <>
     <AccordionTitle  style={{display: 'flex', alignItems: 'center'}}><div style={{width: '30vw', display: 'flex', alignItems: 'center'}}><Icon size='large' color='blue' inverted  name='play circle outline' onClick={()=>playSong(track.uri)} /><Label  content={track.name} color='violet' /></div>
-    {isFavorite ? <Icon color='pink' onClick={removeFavoriteSong} style={{marginTop: 3, }} size='large' name='heart' /> : <Icon onClick={addToFavorites} style={{marginTop: 2}} size='large' color='pink' name='heart outline' />}
+    {isFavorite ? <Icon color='pink' onClick={()=>removeFavoriteSong(track.id)} style={{marginTop: 3, }} size='large' name='heart' /> : <Icon onClick={addToFavorites} style={{marginTop: 2}} size='large' color='pink' name='heart outline' />}
     <Popup position='bottom left' size='mini' content='Add to Playlist' trigger={<Icon  name='plus' onClick={()=>setShow(true)} />} />
     
     </AccordionTitle>

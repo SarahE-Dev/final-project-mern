@@ -4,7 +4,7 @@ import { Grid, Header, Form, Message, Segment, Button, Label, FormField, Input }
 import { AppContext } from '../context/AuthContext';
 import checkAuthCookie from './hooks/checkCookies';
 import {isAlphanumeric, isStrongPassword, isEmail} from 'validator';
-import axios from 'axios';
+import Axios from './utils/Axios';
 import { AuthContextConsumer } from '../context/AuthContext';
 export default function Signup() {
     const [username, setUsername] = useState('');
@@ -44,7 +44,7 @@ export default function Signup() {
             setEmailError('')
             try {
               
-              const newUser = await axios('http://localhost:3002/api/user/signup',{ method: 'post', 
+              const newUser = await Axios('/api/user/signup',{ method: 'post', 
               data: {
               username, password,
               email
