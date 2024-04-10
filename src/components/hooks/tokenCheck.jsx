@@ -92,7 +92,7 @@ function checkTokens(){
     }
     const client_id = import.meta.env.VITE_CLIENT_ID;
     const client_secret = import.meta.env.VITE_CLIENT_SECRET;
-    const redirect_uri = process.env.NODE_ENV === 'development' ? 'http://localhost:5173' : 'https://fyretunes.saraheatherly.dev' ;
+    const redirect_uri = 'https://fyretunes.saraheatherly.dev' ;
     const fetchAccessToken = async () => {
         try {
           const response = await axios.post(
