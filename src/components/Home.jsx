@@ -11,18 +11,15 @@ const client_id='b3c2ec986d6b481793bad1372b1445fd'
 const client_secret = '4f7c4b046c014f25adf7bb82fb8489e9'
 const TOKEN_URL = 'https://accounts.spotify.com/api/token'
 
-const redirect_uri = 'http://localhost:5173'
 
 const SCOPES = ['user-read-playback-state', 'user-modify-playback-state', 'user-read-currently-playing', 'streaming', 'user-read-playback-position', 'user-top-read', 'user-read-recently-played', 'user-library-read', 'user-read-private', 'user-follow-read', 'playlist-read-private', 'user-read-email', 'ugc-image-upload'];
 
-const authorizationUrl = `https://accounts.spotify.com/authorize?client_id=${client_id}&redirect_uri=${redirect_uri}&scope=${SCOPES.join('%20')}&response_type=code`;
+
 
 const grantType = `grant_type=client_credentials&client_id=${client_id}&client_secret=${client_secret}`
 
 export default function Home() {
-  function handleLogin(){
-    window.location.href = authorizationUrl
-}
+  
   const navigate = useNavigate()
   const {dispatch, state} = AuthContextConsumer()
   const {handleTokens} = checkTokens()
