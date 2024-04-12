@@ -70,7 +70,7 @@ export default function Signup() {
     <Grid 
     padded='vertically'
     textAlign='center' style={{backgroundColor: 'black', height: '75vh', padding: '3vw 2vw', width: '80vw', borderRadius: '25px'}}verticalAlign='middle'>
-    <Grid.Column style={{  marginBottom: '20vh'}}>
+    <Grid.Column id='bottom' style={{  marginBottom: '10vh'}}>
       <Header as='h2' color='purple' textAlign='center'>
         Create New Account
       </Header>

@@ -25,7 +25,9 @@
   .nav {
     font-size: .9em;
   }
-  
+  #bottom {
+    margin-bottom: 1vh!important;
+  }
 }
 
 @media screen and (max-width: 360px) {
