@@ -71,7 +71,7 @@ export default function Profile() {
     <div style={{background: 'linear-gradient(109.6deg, rgb(9, 9, 121) 11.2%, rgb(144, 6, 161) 53.7%, rgb(0, 212, 255) 100.2%)', marginLeft: '15vw', color: 'white', height: '90vh', paddingBottom: '15vh'}}>
         <div style={{width: '50vw', margin: 'auto', paddingTop: '5vh', textAlign: 'center'}}>
         <Label color='purple' size='massive' content='Profile Info' style={{margin: '5vh', outline: '2px solid white'}} />
-        <Form style={{padding: '3vh', border: '2px solid white', borderRadius: '20px', backgroundColor: 'black'}}>
+        <Form style={{padding: '3vh', border: '2px solid white', borderRadius: '20px', backgroundColor: 'black', fontSize: '.8em'}}>
             
             <FormField>
                 {
@@ -82,7 +82,7 @@ export default function Profile() {
                 />
                 }
                 {usernameError && <Label pointing prompt color='red'>{usernameError}</Label>}
-                {!isEditable && <h1 style={{fontSize: '2rem'}}>{state &&state.user &&state.user.username}</h1>}
+                {!isEditable && <h3 >{state &&state.user &&state.user.username}</h3>}
                 
                 
             </FormField>
@@ -90,7 +90,7 @@ export default function Profile() {
                 {isEditable && <input
                 onChange={(e)=>{ setEmail(e.target.value) }}
                 value={email}/>}
-                {!isEditable && <h1 style={{fontSize: '2rem'}}>{state &&state.user &&state.user.email}</h1>}
+                {!isEditable && <p className='email' >{state &&state.user &&state.user.email}</p>}
                 {emailError && <Label pointing prompt color='red'>{emailError}</Label>}
                 
                 
@@ -101,7 +101,7 @@ export default function Profile() {
         size='large' inverted color='blue' style={{borderRadius: '25px', marginTop: '5vh'}}>Edit Profile</Button>}
         {isEditable && <div style={{display: 'flex', justifyContent: 'center'}}><ButtonGroup size='small' style={{marginTop: '5vh'}}>
             <Button onClick={()=>setIsEditable(false)}color='grey' inverted><Icon name='delete' /></Button>
-            <Button inverted color='blue' type='submit' onClick={handleSubmit}>Update User</Button>
+            <Button inverted color='blue' type='submit' onClick={handleSubmit}>Update</Button>
             </ButtonGroup></div>}
         </Form>
         

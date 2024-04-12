@@ -26,18 +26,18 @@ export default function Navbar() {
     
   return (
     
-    <Menu  style={{backgroundColor: 'black', color: 'white', borderRadius: 0, height: '10vh', marginTop: 0,marginBottom: 0, fontSize: 20, width: '100vw'}}>
+    <Menu   style={{backgroundColor: 'black', color: 'white', borderRadius: 0, height: '10vh', marginTop: 0,marginBottom: 0, width: '100vw'}}>
         
-        <MenuItem style={{ color: 'white', fontFamily: 'Rock Salt', letterSpacing: '2px'}} as={Link} to='/'><Icon name='fire' color='yellow' />FYRE TUNES<Icon name='music' circular color='pink' /></MenuItem>
-        <MenuMenu position='right'>
+        <MenuItem  className='logo' style={{ color: 'white', fontFamily: 'Rock Salt', letterSpacing: '2px'}} as={Link} to='/'><Icon name='fire' color='yellow' />FYRE TUNES<Icon name='music' circular color='pink' /></MenuItem>
+        <MenuMenu position='right' style={{ padding: 0}}>
           {state && state.user && 
           <>
-          <MenuItem >
-          <Label to='/profile' as={Link} size='big'  color='blue'>{state.user.username}</Label></MenuItem>
-          <MenuItem style={{color: 'white'}} onClick={handleLogout}>Logout</MenuItem></>}
+          <MenuItem className='nav' style={{color: 'purple'}} as={Link} to='/profile'>
+          {state.user.username}</MenuItem>
+          <MenuItem className='nav' style={{color: 'white'}} onClick={handleLogout}>Logout</MenuItem></>}
            {!(state.user) && <>
-           <MenuItem to='/login' style={{color: 'white'}} as={Link}>Login</MenuItem>
-           <MenuItem style={{color: 'white'}} to='/signup' as={Link}>Signup</MenuItem>
+           <MenuItem className='nav' to='/login' style={{color: 'white'}} as={Link}>Login</MenuItem>
+           <MenuItem className='nav' style={{color: 'white'}} to='/signup' as={Link}>Signup</MenuItem>
            </>} 
         </MenuMenu>
     </Menu>

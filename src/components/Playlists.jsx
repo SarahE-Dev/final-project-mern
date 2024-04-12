@@ -82,12 +82,12 @@ export default function Playlists() {
         </ButtonGroup></>}
         </div>
         
-        <Accordion inverted style={{backgroundColor: 'black', width: '83vw', margin: 'auto', marginTop: '2vh'}} styled>
+        <Accordion inverted style={{backgroundColor: 'black', width: '70vw', margin: 'auto', marginTop: '2vh'}} styled>
         {state && state.playlists && (
           state.playlists.map((e, i)=>{
             return (
               <>
-              <AccordionTitle style={{display: 'flex', justifyContent: 'space-between', alignItems: 'center'}} active={activeIndex === i} index={i} onClick={handleClick}>
+              <AccordionTitle key={e.name} style={{display: 'flex', justifyContent: 'space-between', alignItems: 'center'}} active={activeIndex === i} index={i} onClick={handleClick}>
                 <div>
                 <Icon name='dropdown' />
                 {e.name}
@@ -95,13 +95,19 @@ export default function Playlists() {
                 <AccordionContent active={activeIndex === i}>
                   {e.songs.map(s=><div style={{display: 'flex', justifyContent: 'space-between', alignItems: 'center'}}>
                   <div>
+                    <div style={{display: 'flex'}}>
+                    <div>
                   <Icon
                   onClick={()=>playMusic(s.uri)}
                   style={{cursor: 'pointer'}}
                   color='pink'
                   size='large'
-                  name='play circle outline' /><Label color='purple'>{s.title}</Label></div>
-                  <div>
+                  name='play circle outline' />
+                  </div>
+                  <Label color='purple'>{s.title}</Label>
+                  </div>
+                  </div>
+                  <div className='delete'>
                     <Icon
                     onClick={()=>removePlaylistSong(e._id, s._id)}
                     color='grey'

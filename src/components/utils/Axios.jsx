@@ -1,10 +1,8 @@
 import axios from "axios";
 
 const Axios = axios.create({
-    baseURL: process.env.NODE_ENV === 'development' ?  'http://localhost:3002' : 'https://fyretunes.saraheatherly.dev' ,
-    withCredentials: true,
-    credentials: 'include',
+    baseURL: import.meta.env.PROD ? 'https://fyretunes.saraheatherly.dev' : 'http://localhost:3002' ,
     timeout: 50000
-})
 
+})
 export default Axios;

@@ -28,10 +28,7 @@ import checkTokens from './components/hooks/tokenCheck'
 
 const client_id='b3c2ec986d6b481793bad1372b1445fd'
 
-const client_secret = '4f7c4b046c014f25adf7bb82fb8489e9'
-const TOKEN_URL = 'https://accounts.spotify.com/api/token'
-
-const redirect_uri = 'https://fyretunes.saraheatherly.dev'
+const redirect_uri = import.meta.env.PROD ? 'https://fyretunes.saraheatherly.dev':'http://localhost:5173'
 
 const SCOPES = ['user-read-playback-state', 'user-modify-playback-state', 'user-read-currently-playing', 'streaming', 'user-read-playback-position', 'user-top-read', 'user-read-recently-played', 'user-library-read', 'user-read-private', 'user-follow-read', 'playlist-read-private', 'user-read-email', 'ugc-image-upload'];
 

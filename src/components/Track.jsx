@@ -1,6 +1,6 @@
 import React, {useContext, useState, useEffect} from 'react'
 import { TrackContext } from '../context/TrackContext'
-import { AccordionTitle, Icon, Label, AccordionContent, Button, Modal, Header, ModalContent, ModalActions, ModalHeader, ModalDescription, Popup, Form, FormInput, FormButton, FormField, FormGroup } from 'semantic-ui-react'
+import { AccordionTitle, Icon, Label, AccordionContent, Button, Modal, Header, ModalContent, ModalActions, ModalHeader, ModalDescription, Popup, Form, FormInput, FormButton, FormField, FormGroup, PopupContent } from 'semantic-ui-react'
 import { AuthContextConsumer } from '../context/AuthContext'
 import Axios from './utils/Axios'
 
@@ -32,7 +32,7 @@ export default function Track() {
     
     async function removeFavoriteSong(id){
       try {
-        const remove = await Axios.post(`http://localhost:3002/api/user/delete-favorite/${state.user.id}/${id}`)
+        const remove = await Axios.post(`/api/user/delete-favorite/${state.user.id}/${id}`)
         console.log(remove);
         dispatch({type: 'REMOVE_FAVORITE_SONG', payload: remove.data.song._id})
       } catch (error) {
@@ -90,9 +90,13 @@ export default function Track() {
     }
   return (
     <>
-    <AccordionTitle  style={{display: 'flex', alignItems: 'center'}}><div style={{width: '30vw', display: 'flex', alignItems: 'center'}}><Icon size='large' color='blue' inverted  name='play circle outline' onClick={()=>playSong(track.uri)} /><Label  content={track.name} color='violet' /></div>
+    <AccordionTitle  style={{display: 'flex', alignItems: 'center'}}><div style={{width: '45vw', display: 'flex', alignItems: 'center'}}><Icon size='large' color='blue' inverted  name='play circle outline' onClick={()=>playSong(track.uri)} /><Label  content={track.name} color='violet' /></div>
     {isFavorite ? <Icon color='pink' onClick={()=>removeFavoriteSong(track.id)} style={{marginTop: 3, }} size='large' name='heart' /> : <Icon onClick={addToFavorites} style={{marginTop: 2}} size='large' color='pink' name='heart outline' />}
-    <Popup position='bottom left' size='mini' content='Add to Playlist' trigger={<Icon  name='plus' onClick={()=>setShow(true)} />} />
+    <Popup style={{zIndex: 1}} className='popup' on='hover'  position='bottom left' size='mini'  trigger={<Icon  name='plus' onClick={()=>setShow(true)} />}>
+      <PopupContent>
+        Add to Playlist
+      </PopupContent>
+    </Popup>
     
     </AccordionTitle>
     <Modal
@@ -146,8 +150,10 @@ export default function Track() {
         
       </ModalContent>
       <ModalDescription>
+        <div style={{display: 'flex', justifyContent: 'center'}}>
         <Label color='pink'>Playlist Selection : </Label>
-        <Label color='teal'>{playlistSelection}</Label>
+        <Label style={{marginLeft: '2vw'}} color='teal'>{playlistSelection}</Label>
+        </div>
       </ModalDescription>
     <ModalActions>
       <Button inverted color='grey' onClick={()=>setShow(false)}><Icon name='delete' />Cancel</Button>

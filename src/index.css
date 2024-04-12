@@ -3,5 +3,63 @@
   padding: 0;
   box-sizing: border-box;
   
+}
+
+@media screen and (max-width: 480px) {
+  .sidebarMenu {
+    display: none;
+  }
+}
+
+@media screen and (max-width: 770px) {
+  .page {
+    height: 72vh;
+  }
+  
+}
+
+@media screen and (max-width: 400px) {
+  .logo {
+    font-size: .7em;
+  }
+  .nav {
+    font-size: .9em;
+  }
+  
+}
+
+@media screen and (max-width: 360px) {
+  .email {
+    font-size: .8em;
+  }
+  
+}
+
+@media screen and (min-width: 600px) {
+  
+  .email {
+    font-size: 1.5em;
+  }
+  
+}
+
+@media screen and (max-width: 600px) {
+  .homeSearch {
+    font-size: .9em!important;
+  }
+  
+}
+
+@media screen and (min-width: 700px) {
+  .grid {
+    width: 60vw!important;
+  }
+  
+}
+
+@media screen and (max-width: 420px) {
+  .logIn {
+    padding-top: 2vw!important;
+  }
   
 }

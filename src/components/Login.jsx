@@ -42,8 +42,8 @@ export default function Login() {
     }
 }
   return (
-    <div style={{background: 'linear-gradient(109.6deg, rgb(9, 9, 121) 11.2%, rgb(144, 6, 161) 53.7%, rgb(0, 212, 255) 100.2%)', height: '90vh', paddingTop: '15vh', paddingLeft: '20vw'}}>
-    <Grid  textAlign='center' style={{backgroundColor: 'black', height: '60vh', padding: '5vh', width: '60vw', borderRadius: '25px'}}
+    <div style={{background: 'linear-gradient(109.6deg, rgb(9, 9, 121) 11.2%, rgb(144, 6, 161) 53.7%, rgb(0, 212, 255) 100.2%)', height: '90vh', paddingTop: '15vh', overflow: 'hidden', paddingBottom: 0, display: 'flex', justifyContent: 'center'}}>
+    <Grid className='logIn'  textAlign='center' style={{backgroundColor: 'black', height: '60vh', padding: '5vh 2vh', width: '70vw', borderRadius: '25px'}}
     padded='vertically' verticalAlign='middle'>
     <Grid.Column style={{ maxWidth: 450 }}>
       <Header as='h2' color='pink' textAlign='center'>

@@ -3,7 +3,10 @@ import axios from "axios";
 import { useNavigate } from "react-router";
 
 
-const grantType = `grant_type=client_credentials&client_id=${import.meta.env.VITE_CLIENT_ID}&client_secret=${import.meta.env.VITE_CLIENT_SECRET}`
+const client_id='b3c2ec986d6b481793bad1372b1445fd'
+
+const client_secret = '4f7c4b046c014f25adf7bb82fb8489e9'
+const grantType = `grant_type=client_credentials&client_id=${client_id}&client_secret=${client_secret}`
 
 const TOKEN_URL = 'https://accounts.spotify.com/api/token?'
 
@@ -24,7 +27,7 @@ function checkTokens(){
         return code ? true : false
     }
     const grabSpotifyToken=async ()=>{
-        let token = await axios.post('https://accounts.spotify.com/api/token', grantType, {
+        let token = await axios.post('https://accounts.spotify.com/api/token?', grantType, {
           headers: {
             'Content-Type': 'application/x-www-form-urlencoded'
           }
@@ -90,9 +93,8 @@ function checkTokens(){
           console.error('Error exchanging code for tokens:', error);
         }
     }
-    const client_id = import.meta.env.VITE_CLIENT_ID;
-    const client_secret = import.meta.env.VITE_CLIENT_SECRET;
-    const redirect_uri = 'https://fyretunes.saraheatherly.dev' ;
+    
+    const redirect_uri = 'http://localhost:5173' ;
     const fetchAccessToken = async () => {
         try {
           const response = await axios.post(

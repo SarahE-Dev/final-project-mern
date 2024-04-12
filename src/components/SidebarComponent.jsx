@@ -5,23 +5,23 @@ import { Sidebar, Menu, MenuItem, SidebarPusher, Segment, SidebarPushable, Icon,
 export default function SidebarComponent() {
   return (
     
-    <div style={{position: 'fixed', left: 0, width: '15vw', backgroundColor: 'black', height: '90vh'}}>
+    <div style={{position: 'fixed', left: 0, width: '15vw', backgroundColor: 'black', height: '90vh', }} >
         
-        <Menu as={Segment} style={{width: '15vw', height: '90vh', display: 'flex', justifyContent: 'space-evenly', fontSize: '1rem'}} vertical inverted>
+        <Menu  as={Segment} style={{width: '15vw', height: '90vh', display: 'flex', justifyContent: 'space-around', fontSize: '1em'}} vertical inverted>
             <MenuItem
             as={Link}
             to='/'
              style={{textAlign: 'center', display: 'flex', flexDirection: 'column', alignItems: 'center'}}>
                 <div><Icon size='big'  color='purple' name='fire'/></div>
                 
-                <h2>Home</h2>
+                <h2 className='sidebarMenu'>Home</h2>
                 </MenuItem>
                 <MenuItem
                 as={Link}
                 to='/playlists'
-                style={{textAlign: 'center', display: 'flex', flexDirection: 'column', alignItems: 'center'}}>
+                style={{textAlign: 'center', display: 'flex', flexDirection: 'column', alignItems: 'center', justifyContent: 'center'}}>
                 <div><Icon size='large' circular name='headphones' color='blue' /></div>
-                <h4 style={{}}>Playlists</h4>
+                <h3 className='sidebarMenu' >Playlists</h3>
                 
                 </MenuItem>
                 <MenuItem
@@ -32,7 +32,7 @@ export default function SidebarComponent() {
                 color='violet'
                 name='heartbeat'/></div>
                 
-                <h4>Favorites</h4>
+                <h3 className='sidebarMenu'>Favorites</h3>
                 </MenuItem>
                 <Divider/>
         </Menu>
