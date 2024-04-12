@@ -79,7 +79,7 @@ export default function MainRouter() {
             <Route path='/track/:trackID' element={<PrivateRoute><Track/></PrivateRoute>} />
         </Routes>
         
-        <div style={{position: 'absolute', bottom: 0, width: '100vw'}}>
+        <div style={{position: 'fixed', bottom: 0, width: '100vw'}}>
         {state.accessToken && checkIfCookieExists() &&
         <SpotifyWebPlayer
         
