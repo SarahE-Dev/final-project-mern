@@ -94,7 +94,7 @@ function checkTokens(){
         }
     }
     
-    const redirect_uri = 'http://localhost:5173' ;
+    const redirect_uri = import.meta.env.PROD ? 'https://fyretunes.saraheatherly.dev' : 'http://localhost:5173'
     const fetchAccessToken = async () => {
         try {
           const response = await axios.post(
