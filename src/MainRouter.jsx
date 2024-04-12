@@ -57,7 +57,7 @@ export default function MainRouter() {
   
     
   return (
-    <>
+    <div style={{maxHeight: '100vh'}}>
         <ToastContainer/>
         <Navbar/>
         
@@ -96,6 +96,6 @@ export default function MainRouter() {
         
         
         
-        </>
+        </div>
   )
 }
