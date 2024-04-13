@@ -42,15 +42,15 @@ export default function Login() {
     }
 }
   return (
-    <div style={{background: 'linear-gradient(109.6deg, rgb(9, 9, 121) 11.2%, rgb(144, 6, 161) 53.7%, rgb(0, 212, 255) 100.2%)', height: '90vh', paddingTop: '15vh', overflow: 'hidden', paddingBottom: 0, display: 'flex', justifyContent: 'center'}}>
-    <Grid className='logIn'  textAlign='center' style={{backgroundColor: 'black', height: '60vh', padding: '5vh 2vh', width: '70vw', borderRadius: '25px'}}
+    <div style={{background: 'linear-gradient(109.6deg, rgb(9, 9, 121) 11.2%, rgb(144, 6, 161) 53.7%, rgb(0, 212, 255) 100.2%)', height: '90vh', overflow: 'hidden', display: 'flex', justifyContent: 'center', alignItems: 'center'}}>
+    <Grid className='logIn'  textAlign='center' style={{backgroundColor: 'black', height: 'fit-content', padding: '2vh 2vh', width: '65vw', borderRadius: '25px', maxWidth: '500px'}}
     padded='vertically' verticalAlign='middle'>
-    <Grid.Column style={{ maxWidth: 450 }}>
+    <Grid.Column style={{ }}>
       <Header as='h2' color='pink' textAlign='center'>
         Login to your account
       </Header>
       <Form onSubmit={handleOnSubmit} size='large'>
-        <Segment stacked>
+        
           <Form.Input 
           value={username}
           onChange={(e)=>setUsername(e.target.value)}
@@ -70,7 +70,7 @@ export default function Login() {
           inverted color='purple' fluid size='large'>
             Login
           </Button>
-        </Segment>
+        
       </Form>
       <Message className='black'>
         New to us?  <Link to='/signup' style={{marginLeft: '4px'}}>Signup</Link>

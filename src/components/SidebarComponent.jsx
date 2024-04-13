@@ -5,7 +5,7 @@ import { Sidebar, Menu, MenuItem, SidebarPusher, Segment, SidebarPushable, Icon,
 export default function SidebarComponent() {
   return (
     
-    <div style={{position: 'fixed', left: 0, width: '15vw', backgroundColor: 'black', height: '90vh', }} >
+    <div style={{position: 'absolute', left: 0, width: '15vw', backgroundColor: 'black', height: '90vh', }} >
         
         <Menu  as={Segment} style={{width: '15vw', height: '90vh', display: 'flex', justifyContent: 'space-around', fontSize: '1em'}} vertical inverted>
             <MenuItem

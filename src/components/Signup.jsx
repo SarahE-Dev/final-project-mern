@@ -66,16 +66,17 @@ export default function Signup() {
       
     }
   return (
-    <div style={{background: 'linear-gradient(109.6deg, rgb(9, 9, 121) 11.2%, rgb(144, 6, 161) 53.7%, rgb(0, 212, 255) 100.2%)', height: '90vh', paddingTop: '7vh', display: 'flex', justifyContent: 'center'}}>
+    <div style={{background: 'linear-gradient(109.6deg, rgb(9, 9, 121) 11.2%, rgb(144, 6, 161) 53.7%, rgb(0, 212, 255) 100.2%)', height: '90vh', display: 'flex', justifyContent: 'center', alignItems: 'center'}}>
     <Grid 
     padded='vertically'
-    textAlign='center' style={{backgroundColor: 'black', height: '75vh', padding: '3vw 2vw', width: '80vw', borderRadius: '25px'}}verticalAlign='middle'>
-    <Grid.Column id='bottom' style={{  marginBottom: '10vh'}}>
+    textAlign='center' style={{backgroundColor: 'black', height: 'fit-content', padding: '0vw 2vw', borderRadius: '25px', width: '65vw', maxWidth: '500px'}}verticalAlign='middle'>
+    <Grid.Column id='bottom' style={{  }}>
       <Header as='h2' color='purple' textAlign='center'>
         Create New Account
       </Header>
-      <Form  size='large'>
-        <Segment stacked>
+      <Form style={{}}  size='small'>
+        
+          
             <FormField>
           <Input fluid icon='envelope open' iconPosition='left' 
           value={email}
@@ -102,6 +103,7 @@ export default function Signup() {
             <Label pointing prompt>{usernameError}</Label> : ''  
         }
           </FormField>
+          
           <FormField>
           <Input
             fluid
@@ -132,13 +134,14 @@ export default function Signup() {
             <Label pointing prompt>{confirmPasswordError}</Label> : ''  
         }
         </FormField>
+        
           <Button
           onClick={handleOnSubmit}
           icon='save'
           inverted color='purple' fluid 
           content='Submit'
           size='large' />
-        </Segment>
+        
       </Form>
       <Message className='ui black message'>
         Already have an account? <Link style={{marginLeft: '4px'}} to='/login'>Login</Link>

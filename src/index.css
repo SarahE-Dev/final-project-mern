@@ -28,7 +28,10 @@
   #bottom {
     margin-bottom: 1vh!important;
   }
+  
 }
+
+
 
 @media screen and (max-width: 360px) {
   .email {
@@ -52,16 +55,16 @@
   
 }
 
-@media screen and (min-width: 700px) {
+/* @media screen and (min-width: 700px) {
   .grid {
     width: 60vw!important;
   }
   
-}
+} */
 
-@media screen and (max-width: 420px) {
+/* @media screen and (max-width: 420px) {
   .logIn {
     padding-top: 2vw!important;
   }
   
-}
+} */
