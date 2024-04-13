@@ -39,7 +39,7 @@ function checkAuthCookie(){
             
         }
     }
-    return {checkIfCookieExists, logUserIn}
+    return {checkIfCookieExists, logUserIn, getUserData}
     
 }
 

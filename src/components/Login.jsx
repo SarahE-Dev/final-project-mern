@@ -12,7 +12,7 @@ export default function Login() {
   const [username, setUsername] = useState('');
   const [password, setPassword] = useState('')
   const {dispatch} = AuthContextConsumer()
-  const {checkIfCookieExists, logUserIn} = checkAuthCookie()
+  const {checkIfCookieExists, logUserIn, getUserData} = checkAuthCookie()
   if(checkIfCookieExists()){ 
     return <Navigate to='/' />
   }
@@ -34,7 +34,7 @@ export default function Login() {
             id: foundUser.data._id
             
         }})
-        
+        getUserData(foundUser.data._id)
         setUsername('');
         setPassword('');
     } catch (error) {
