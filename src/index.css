@@ -11,12 +11,12 @@
   }
 }
 
-@media screen and (max-width: 770px) {
+/* @media screen and (max-width: 770px) {
   .page {
     height: 72vh;
   }
   
-}
+} */
 
 @media screen and (max-width: 400px) {
   .logo {
