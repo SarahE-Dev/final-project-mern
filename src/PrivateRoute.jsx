@@ -1,5 +1,5 @@
-import React, {useContext} from 'react';
-import { Route, Navigate } from 'react-router';
+import React from 'react';
+import { Navigate } from 'react-router';
 import checkAuthCookie from './components/hooks/checkCookies';
 
 const PrivateRoute = ({children}) =>{

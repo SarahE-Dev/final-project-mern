@@ -1,4 +1,4 @@
-import { AuthContextConsumer } from "../../context/AuthContext";
+import { useAppContext } from "../../context/AuthContext";
 import axios from "axios";
 import { useNavigate } from "react-router";
 
@@ -12,7 +12,7 @@ const TOKEN_URL = 'https://accounts.spotify.com/api/token?'
 
 
 function checkTokens(){
-    const {state, dispatch} = AuthContextConsumer()
+    const {state, dispatch} = useAppContext()
     const navigate = useNavigate()
     const params = new URLSearchParams(window.location.search);
     const code = params.get('code');

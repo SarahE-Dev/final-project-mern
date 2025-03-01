@@ -1,13 +1,13 @@
 import Cookie from "js-cookie";
 import { jwtDecode } from "jwt-decode";
-import { AuthContextConsumer } from "../../context/AuthContext";
+import { useAppContext } from "../../context/AuthContext";
 import axios from "axios";
 
 import Axios from "../utils/Axios";
 
 
 function checkAuthCookie(){
-    const {dispatch} = AuthContextConsumer()
+    const {dispatch} = useAppContext()
     function checkIfCookieExists(){
         const cookie = Cookie.get('music-app-cookie');
         return cookie ? true : false

@@ -7,10 +7,10 @@ import { BrowserRouter as Router } from 'react-router-dom'
 export default function App() {
   return (
     <>
-    <Router>
-      <AppProvider>
-      <MainRouter />
-      </AppProvider>
+      <Router>
+        <AppProvider>
+          <MainRouter />
+        </AppProvider>
       </Router>
     </>
   )
