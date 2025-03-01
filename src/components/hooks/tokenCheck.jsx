@@ -3,9 +3,9 @@ import axios from "axios";
 import { useNavigate } from "react-router";
 
 
-const client_id='b3c2ec986d6b481793bad1372b1445fd'
+const client_id=import.meta.env.VITE_CLIENT_ID;
+const client_secret = import.meta.env.VITE_CLIENT_SECRET;
 
-const client_secret = '4f7c4b046c014f25adf7bb82fb8489e9'
 const grantType = `grant_type=client_credentials&client_id=${client_id}&client_secret=${client_secret}`
 
 const TOKEN_URL = 'https://accounts.spotify.com/api/token?'
